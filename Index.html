@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de Regalos · Clarisa & Ramiro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream: #FAF7F2;
+      --sand: #E8DDD0;
+      --blush: #D4A89A;
+      --rose: #B07D72;
+      --bark: #6B4F43;
+      --ink: #2C2018;
+      --gold: #C9A96E;
+      --gold-light: #E8D5A3;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+    }
+
+    h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, var(--sand) 0%, var(--cream) 55%, var(--gold-light) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0; right: 0;
+      height: 80px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .divider-line {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .divider-line::before,
+    .divider-line::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    /* ── CARDS ── */
+    .gift-card {
+      background: #fff;
+      border: 1px solid var(--sand);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+      position: relative;
+    }
+
+    .gift-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(107, 79, 67, 0.12);
+    }
+
+    .gift-card img {
+      transition: transform 0.6s ease;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gift-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .img-wrap { overflow: hidden; height: 220px; }
+
+    .btn-gift {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--ink);
+      color: var(--gold-light);
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      padding: 12px 28px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease;
+      width: 100%;
+    }
+
+    .btn-gift:hover {
+      background: var(--bark);
+      color: var(--gold-light);
+    }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(44, 32, 24, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-box {
+      background: var(--cream);
+      border: 1px solid var(--sand);
+      border-radius: 2px;
+      width: 100%;
+      max-width: 460px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+      position: relative;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: translateY(0) scale(1);
+    }
+
+    .amount-btn {
+      border: 1px solid var(--sand);
+      background: #fff;
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-radius: 2px;
+    }
+
+    .amount-btn:hover, .amount-btn.selected {
+      background: var(--ink);
+      color: var(--gold-light);
+      border-color: var(--ink);
+    }
+
+    .amount-custom input {
+      border: 1px solid var(--sand);
+      background: #fff;
+      width: 100%;
+      padding: 10px 14px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      color: var(--ink);
+      border-radius: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .amount-custom input:focus {
+      border-color: var(--gold);
+    }
+
+    .cbu-box {
+      background: #fff;
+      border: 1px solid var(--sand);
+      border-radius: 2px;
+      padding: 16px 20px;
+    }
+
+    .cbu-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rose);
+    }
+
+    .cbu-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+      margin-top: 2px;
+    }
+
+    .copy-btn {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 0;
+      font-family: 'Jost', sans-serif;
+      transition: color 0.2s;
+    }
+
+    .copy-btn:hover { color: var(--bark); }
+
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #25D366;
+      color: #fff;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.25s;
+    }
+
+    .btn-whatsapp:hover { background: #1ebe5d; }
+
+    .close-modal {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--bark);
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .close-modal:hover { color: var(--ink); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--sand);
+    }
+
+    /* ── FADE-IN ON LOAD ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .gift-card { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+    .gift-card:nth-child(1) { animation-delay: 0.1s; }
+    .gift-card:nth-child(2) { animation-delay: 0.2s; }
+    .gift-card:nth-child(3) { animation-delay: 0.3s; }
+    .gift-card:nth-child(4) { animation-delay: 0.4s; }
+    .gift-card:nth-child(5) { animation-delay: 0.5s; }
+    .gift-card:nth-child(6) { animation-delay: 0.6s; }
+
+    /* scrollbar elegante */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 10px; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════
+       HERO
+  ════════════════════════════════ -->
+  <section class="hero min-h-[85vh] flex flex-col items-center justify-center text-center px-6 pb-20 pt-16">
+
+    <!-- ornamento superior -->
+    <div class="fade-up mb-8" style="animation-delay:0.1s">
+      <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 1 C20 10, 1 10, 1 20 C1 26, 8 29, 15 26 C22 23, 25 15, 30 12 C35 15, 38 23, 45 26 C52 29, 59 26, 59 20 C59 10, 40 10, 30 1Z" fill="#C9A96E" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <p class="fade-up text-xs tracking-[0.3em] uppercase mb-4" style="color:var(--rose); animation-delay:0.2s">
+      06 · Septiembre · 2025
+    </p>
+
+    <h1 class="fade-up font-light leading-none mb-3" style="font-family:'Cormorant Garamond',serif; font-size:clamp(3.5rem,10vw,7rem); color:var(--ink); animation-delay:0.3s">
+      Sofía<br><em style="font-style:italic; color:var(--bark);">&</em><br>Matías
+    </h1>
+
+    <div class="divider-line fade-up w-72 my-6" style="animation-delay:0.45s">
+      <span class="text-xs tracking-[0.2em] uppercase" style="color:var(--gold)">Lista de Regalos</span>
+    </div>
+
+    <p class="fade-up max-w-md mx-auto leading-relaxed" style="color:var(--bark); font-size:1.05rem; animation-delay:0.55s">
+      El mejor regalo que podés hacernos es acompañarnos en este día tan especial.
+      Pero si querés sumarte a un recuerdo, acá encontrás algunas ideas para nuestra luna de miel. 💛
+    </p>
+
+    <div class="fade-up mt-10" style="animation-delay:0.65s">
+      <a href="#regalos" class="text-xs tracking-[0.3em] uppercase border-b pb-0.5 transition-colors duration-200"
+         style="color:var(--gold); border-color:var(--gold-light);">
+        Ver lista ↓
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       GRID DE REGALOS
+  ════════════════════════════════ -->
+  <section id="regalos" class="max-w-6xl mx-auto px-6 pb-24">
+
+    <div class="text-center mb-14">
+      <h2 class="text-4xl font-light" style="font-family:'Cormorant Garamond',serif; color:var(--ink)">
+        Nuestra Luna de Miel
+      </h2>
+      <p class="mt-2 text-sm tracking-widest uppercase" style="color:var(--rose)">Contribuí con lo que tu corazón dicte</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- CARD 1 -->
+      <article class="gift-card">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80&auto=format&fit=crop"
+               alt="Vuelos de avión" loading="lazy" height="220" />
+        </div>
+        <div class="p-5">
+          <p class="text-xs tracking-widest uppercase mb-1" style="color:var(--gold)">Viaje</p>
+          <h3 class="text-2xl font-light mb-2" style="font-family:'Cormorant Garamond',serif">Vuelos de Avión</h3>
+          <p class="text-sm leading-relaxed mb-5" style="color:var(--bark)">
+            Ayudanos a volar hacia el destino de nuestros sueños. Cada aporte nos acerca un poco más.
+          </p>
+        </div>
+        <button class="btn-gift" onclick="openModal('Vuelos de Avión')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21l-8-9 2-1.5 5 2V3l2-.5 2 .5v9.5l5-2L22 12z"/></svg>
+          Regalar
+        </button>
+      </article>
+
+      <!-- CARD 2 -->
+      <article class="gift-card">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80&auto=format&fit=crop"
+               alt="Cenas en la playa" loading="lazy" height="220" />
+        </div>
+        <div class="p-5">
+          <p class="text-xs tracking-widest uppercase mb-1" style="color:var(--gold)">Gastronomía</p>
+          <h3 class="text-2xl font-light mb-2" style="font-family:'Cormorant Garamond',serif">Cenas en la Playa</h3>
+          <p class="text-sm leading-relaxed mb-5" style="color:var(--bark)">
+            Una cena con los pies en la arena, el mar de fondo y el amor a flor de piel. Nuestro plan perfecto.
+          </p>
+        </div>
+        <button class="btn-gift" onclick="openModal('Cenas en la Playa')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21l-8-9 2-1.5 5 2V3l2-.5 2 .5v9.5l5-2L22 12z"/></svg>
+          Regalar
+        </button>
+      </article>
+
+      <!-- CARD 3 -->
+      <article class="gift-card">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=600&q=80&auto=format&fit=crop"
+               alt="Excursiones de aventura" loading="lazy" height="220" />
+        </div>
+        <div class="p-5">
+          <p class="text-xs tracking-widest uppercase mb-1" style="color:var(--gold)">Aventura</p>
+          <h3 class="text-2xl font-light mb-2" style="font-family:'Cormorant Garamond',serif">Excursiones de Aventura</h3>
+          <p class="text-sm leading-relaxed mb-5" style="color:var(--bark)">
+            Trekking, snorkel, zip-line... Queremos vivirlo todo juntos. ¡Sumá adrenalina a nuestra luna!
+          </p>
+        </div>
+        <button class="btn-gift" onclick="openModal('Excursiones de Aventura')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21l-8-9 2-1.5 5 2V3l2-.5 2 .5v9.5l5-2L22 12z"/></svg>
+          Regalar
+        </button>
+      </article>
+
+      <!-- CARD 4 -->
+      <article class="gift-card">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80&auto=format&fit=crop"
+               alt="Noches de hotel" loading="lazy" height="220" />
+        </div>
+        <div class="p-5">
+          <p class="text-xs tracking-widest uppercase mb-1" style="color:var(--gold)">Hospedaje</p>
+          <h3 class="text-2xl font-light mb-2" style="font-family:'Cormorant Garamond',serif">Noches de Hotel</h3>
+          <p class="text-sm leading-relaxed mb-5" style="color:var(--bark)">
+            Despertar con el mar desde la habitación, desayuno incluido y sin apuros. El lujo de estar juntos.
+          </p>
+        </div>
+        <button class="btn-gift" onclick="openModal('Noches de Hotel')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21l-8-9 2-1.5 5 2V3l2-.5 2 .5v9.5l5-2L22 12z"/></svg>
+          Regalar
+        </button>
+      </article>
+
+      <!-- CARD 5 -->
+      <article class="gift-card">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80&auto=format&fit=crop"
+               alt="Día de spa" loading="lazy" height="220" />
+        </div>
+        <div class="p-5">
+          <p class="text-xs tracking-widest uppercase mb-1" style="color:var(--gold)">Bienestar</p>
+          <h3 class="text-2xl font-light mb-2" style="font-family:'Cormorant Garamond',serif">Día de Spa</h3>
+          <p class="text-sm leading-relaxed mb-5" style="color:var(--bark)">
+            Masajes en pareja, aromaterapia y total relajación. El merecido descanso después de tanto festejo.
+          </p>
+        </div>
+        <button class="btn-gift" onclick="openModal('Día de Spa')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21l-8-9 2-1.5 5 2V3l2-.5 2 .5v9.5l5-2L22 12z"/></svg>
+          Regalar
+        </button>
+      </article>
+
+      <!-- CARD 6 -->
+      <article class="gift-card">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=600&q=80&auto=format&fit=crop"
+               alt="Tour en barco" loading="lazy" height="220" />
+        </div>
+        <div class="p-5">
+          <p class="text-xs tracking-widest uppercase mb-1" style="color:var(--gold)">Experiencia</p>
+          <h3 class="text-2xl font-light mb-2" style="font-family:'Cormorant Garamond',serif">Tour en Velero</h3>
+          <p class="text-sm leading-relaxed mb-5" style="color:var(--bark)">
+            Navegar al atardecer, champagne de por medio y el horizonte como única compañía.
+          </p>
+        </div>
+        <button class="btn-gift" onclick="openModal('Tour en Velero')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21l-8-9 2-1.5 5 2V3l2-.5 2 .5v9.5l5-2L22 12z"/></svg>
+          Regalar
+        </button>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       FOOTER
+  ════════════════════════════════ -->
+  <footer class="py-12 text-center px-6" style="background:var(--ink);">
+    <p class="text-sm tracking-widest uppercase mb-2" style="color:var(--gold)">Sofía & Matías · 2025</p>
+    <p class="text-xs" style="color:var(--bark)">Gracias por ser parte de nuestra historia ✨</p>
+  </footer>
+
+
+  <!-- ════════════════════════════════
+       MODAL
+  ════════════════════════════════ -->
+  <div id="modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+       onclick="handleOverlayClick(event)">
+    <div class="modal-box p-7">
+
+      <button class="close-modal" onclick="closeModal()" aria-label="Cerrar">×</button>
+
+      <!-- encabezado -->
+      <div class="mb-6 pr-6">
+        <p class="text-xs tracking-widest uppercase mb-1" style="color:var(--gold)">Estás regalando</p>
+        <h2 id="modal-title" class="text-3xl font-light" style="font-family:'Cormorant Garamond',serif; color:var(--ink)">
+          Vuelos de Avión
+        </h2>
+      </div>
+
+      <div class="divider-line mb-6">
+        <span class="text-xs tracking-wider uppercase" style="color:var(--rose)">Elegí un monto</span>
+      </div>
+
+      <!-- montos sugeridos -->
+      <div class="grid grid-cols-3 gap-3 mb-4">
+        <button class="amount-btn" onclick="selectAmount(this, '$10.000')">$10.000</button>
+        <button class="amount-btn" onclick="selectAmount(this, '$20.000')">$20.000</button>
+        <button class="amount-btn" onclick="selectAmount(this, '$50.000')">$50.000</button>
+      </div>
+
+      <!-- monto libre -->
+      <div class="amount-custom mb-6">
+        <label class="text-xs tracking-widest uppercase block mb-2" style="color:var(--bark)">O ingresá un monto libre</label>
+        <div class="flex items-center gap-2">
+          <span class="text-sm" style="color:var(--gold)">$</span>
+          <input type="number" id="custom-amount" placeholder="Ej: 15000" min="0"
+                 oninput="clearAmountBtns()" />
+        </div>
+      </div>
+
+      <!-- datos bancarios -->
+      <div class="cbu-box mb-6 space-y-4">
+        <div>
+          <p class="cbu-label">CBU</p>
+          <p class="cbu-value" id="cbu-value">0070099520000012345678</p>
+          <button class="copy-btn mt-1" onclick="copyText('0070099520000012345678', this)">Copiar CBU</button>
+        </div>
+        <div style="border-top:1px solid var(--sand); padding-top:12px;">
+          <p class="cbu-label">Alias</p>
+          <p class="cbu-value">clarimiro.mp</p>
+          <button class="copy-btn mt-1" onclick="copyText('clarimiro.mp', this)">Copiar Alias</button>
+        </div>
+        <div style="border-top:1px solid var(--sand); padding-top:12px;">
+          <p class="cbu-label">Titular</p>
+          <p class="cbu-value" style="font-size:0.95rem;">Sofía González</p>
+        </div>
+      </div>
+
+      <!-- botón WhatsApp -->
+      <button class="btn-whatsapp" onclick="sendWhatsApp()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.135.564 4.14 1.544 5.875L0 24l6.336-1.514A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.79 9.79 0 01-5.002-1.371l-.36-.214-3.732.892.921-3.626-.234-.373A9.784 9.784 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/>
+        </svg>
+        Enviar comprobante por WhatsApp
+      </button>
+
+      <p class="text-center mt-4 text-xs" style="color:var(--bark)">
+        Una vez realizada la transferencia, envianos el comprobante.<br>¡Gracias de corazón! 💛
+      </p>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════ -->
+  <script>
+    /* ── Config ── */
+    const WHATSAPP_NUMBER = '5491157431671'; // Reemplazá con el número real (cód. país sin +)
+
+    let selectedGift = '';
+    let selectedAmount = '';
+
+    /* ── Abrir modal ── */
+    function openModal(giftName) {
+      selectedGift = giftName;
+      selectedAmount = '';
+      document.getElementById('modal-title').textContent = giftName;
+
+      // reset selección
+      document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('custom-amount').value = '';
+
+      const overlay = document.getElementById('modal');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    /* ── Cerrar modal ── */
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ── Cerrar al click en overlay ── */
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('modal')) closeModal();
+    }
+
+    /* ── Cerrar con Escape ── */
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    /* ── Seleccionar monto ── */
+    function selectAmount(btn, amount) {
+      document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedAmount = amount;
+      document.getElementById('custom-amount').value = '';
+    }
+
+    function clearAmountBtns() {
+      document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+      selectedAmount = '';
+    }
+
+    /* ── Copiar al portapapeles ── */
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = '✓ Copiado';
+        setTimeout(() => { btn.textContent = original; }, 2000);
+      });
+    }
+
+    /* ── Enviar WhatsApp ── */
+    function sendWhatsApp() {
+      const customVal = document.getElementById('custom-amount').value;
+      const amount = selectedAmount || (customVal ? `$${customVal}` : '');
+      const amountText = amount ? ` por un monto de ${amount}` : '';
+      const msg = `¡Hola Sofía y Matías! 🎉 Quiero regalarles "${selectedGift}"${amountText}. Les adjunto el comprobante de la transferencia. ¡Felices para siempre! 💛`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    /* ── Scroll suave ── */
+    document.querySelector('a[href="#regalos"]').addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('regalos').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
