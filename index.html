@@ -66,8 +66,13 @@
     .modal-overlay.open{opacity:1;pointer-events:all;}
     .modal-box{background:var(--cream);border:1px solid rgba(192,120,80,.22);border-radius:3px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;transform:translateY(24px) scale(.97);transition:transform .35s cubic-bezier(.34,1.2,.64,1);position:relative;}
     .modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
-    .amount-btn{border:1px solid rgba(192,120,80,.3);background:#fff;color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:1.05rem;padding:10px 0;cursor:pointer;transition:all .2s ease;border-radius:2px;}
+    /* Botones de montos sugeridos (los 3 principales) */
+    .amount-btn{border:1px solid rgba(192,120,80,.3);background:#fff;color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:1.05rem;padding:10px 0;cursor:pointer;transition:all .2s ease;border-radius:2px;width:100%;}
     .amount-btn:hover,.amount-btn.selected{background:linear-gradient(110deg,var(--burnt),var(--fuschia));color:#fff;border-color:transparent;}
+    /* Grid de 3 botones de montos */
+    .amounts-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
+    /* Separador "Otro monto" */
+    .other-amount-label{font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin-bottom:8px;display:block;}
     .amount-custom input{border:1px solid rgba(192,120,80,.3);background:#fff;width:100%;padding:10px 14px;font-family:'Jost',sans-serif;font-size:.9rem;outline:none;color:var(--ink);border-radius:2px;transition:border-color .2s;}
     .amount-custom input:focus{border-color:var(--burnt);}
     .cbu-box{background:#fff;border:1px solid rgba(192,120,80,.2);border-radius:2px;padding:16px 20px;}
@@ -77,6 +82,11 @@
     .copy-btn:hover{color:var(--burnt);}
     .btn-whatsapp{display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#fff;width:100%;padding:14px;border:none;cursor:pointer;border-radius:2px;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;transition:background .25s;}
     .btn-whatsapp:hover{background:#1ebe5d;}
+    /* Botón secundario Mercado Pago */
+    .btn-mp{display:flex;align-items:center;justify-content:center;gap:9px;background:#fff;color:var(--ink);width:100%;padding:13px;border:1px solid rgba(192,120,80,.35);cursor:pointer;border-radius:2px;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;transition:background .2s,border-color .2s;margin-top:10px;}
+    .btn-mp:hover{background:rgba(255,248,240,.95);border-color:rgba(192,120,80,.6);}
+    /* Aviso monto libre para MP */
+    .mp-notice{font-family:'Jost',sans-serif;font-size:.72rem;color:var(--copper);text-align:center;padding:11px 14px;background:rgba(255,176,124,.1);border:1px solid rgba(192,120,80,.2);border-radius:2px;line-height:1.6;margin-top:10px;display:none;}
     .close-modal{position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;font-size:1.5rem;color:var(--copper);line-height:1;transition:color .2s;}
     .close-modal:hover{color:var(--ink);}
     .icon-circle{width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(192,120,80,.25);display:flex;align-items:center;justify-content:center;background:rgba(255,176,124,.07);flex-shrink:0;}
@@ -288,7 +298,7 @@
       </button>
     </article>
 
-    <!-- ── SECCIÓN EXTRA ── -->
+    <!-- SECCIÓN EXTRA -->
     <div class="extra-divider" data-aos="fade-up">
       <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:var(--copper);white-space:nowrap;">Causas especiales</span>
     </div>
@@ -328,15 +338,12 @@
       </button>
     </article>
 
-
-
   </section>
 
   <!-- Flowers bottom -->
   <div class="flower-strip pb-6" data-aos="fade-up">
     <svg class="flower-c" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="4" fill="#C07850" opacity=".9"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(0 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".8" transform="rotate(60 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(120 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#E65A28" opacity=".8" transform="rotate(180 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".85" transform="rotate(240 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".8" transform="rotate(300 14 14)"/></svg>
     <svg class="flower-a" width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="5" fill="#C9A96E" opacity=".9"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".85" transform="rotate(0 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".8" transform="rotate(72 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#FFB07C" opacity=".75" transform="rotate(144 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".8" transform="rotate(216 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".85" transform="rotate(288 18 18)"/></svg>
-    <!-- Hojita al medio -->
     <svg class="flower-b" width="24" height="30" viewBox="0 0 24 30" fill="none"><path d="M12 2 C5 10 5 20 12 28 C19 20 19 10 12 2Z" fill="#4A5D23" opacity=".7"/><line x1="12" y1="4" x2="12" y2="26" stroke="#6a9a30" stroke-width=".8" opacity=".5"/></svg>
     <svg class="flower-a" width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="4.5" fill="#C9A96E" opacity=".9"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#E65A28" opacity=".85" transform="rotate(0 16 16)"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#D1105A" opacity=".8" transform="rotate(72 16 16)"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#FFB07C" opacity=".85" transform="rotate(144 16 16)"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#E65A28" opacity=".8" transform="rotate(216 16 16)"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#D1105A" opacity=".85" transform="rotate(288 16 16)"/></svg>
     <svg class="flower-c" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="4" fill="#C07850" opacity=".9"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".8" transform="rotate(0 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(60 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#E65A28" opacity=".8" transform="rotate(120 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".85" transform="rotate(180 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".8" transform="rotate(240 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#E65A28" opacity=".75" transform="rotate(300 14 14)"/></svg>
@@ -358,31 +365,49 @@
   <div id="modal" class="modal-overlay" role="dialog" aria-modal="true" onclick="handleOverlayClick(event)">
     <div class="modal-box p-7">
       <button class="close-modal" onclick="closeModal()" aria-label="Cerrar">×</button>
+
+      <!-- Flores decorativas -->
       <div class="flex justify-center gap-2 mb-5">
         <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="4" fill="#C9A96E"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#D1105A" opacity=".85" transform="rotate(0 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#E65A28" opacity=".8" transform="rotate(90 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#FFB07C" opacity=".8" transform="rotate(180 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#D1105A" opacity=".8" transform="rotate(270 18 18)"/></svg>
         <svg width="12" height="18" viewBox="0 0 24 30" fill="none"><path d="M12 2 C5 10 5 20 12 28 C19 20 19 10 12 2Z" fill="#4A5D23" opacity=".7"/></svg>
         <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="4" fill="#C07850"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#E65A28" opacity=".85" transform="rotate(0 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#D1105A" opacity=".8" transform="rotate(90 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#FFB07C" opacity=".8" transform="rotate(180 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#E65A28" opacity=".8" transform="rotate(270 18 18)"/></svg>
       </div>
+
+      <!-- Título -->
       <div class="mb-5 pr-6 text-center">
         <p class="section-label mb-1">estás contribuyendo a</p>
         <h2 id="modal-title" style="font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:400;color:var(--ink);line-height:1.2;">—</h2>
       </div>
+
       <div class="botanical-divider mb-5">
         <span style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--olive);">Elegí un monto</span>
       </div>
 
-      <!-- Botones solo para Poker y Peluquín, campo libre para el resto -->
-      <div id="amount-grid" class="grid grid-cols-3 gap-2 mb-4"></div>
+      <!-- ① 3 botones de montos sugeridos (siempre visibles) -->
+      <div class="amounts-row" id="suggested-amounts">
+        <button class="amount-btn" onclick="selectSuggested(this, 100000)">$100.000</button>
+        <button class="amount-btn" onclick="selectSuggested(this, 200000)">$200.000</button>
+        <button class="amount-btn" onclick="selectSuggested(this, 400000)">$400.000</button>
+      </div>
 
+      <!-- Botones extra para Poker (ocultos por defecto) -->
+      <div class="amounts-row" id="extra-amounts" style="display:none;">
+        <button class="amount-btn" onclick="selectSuggested(this, 10000)">$10.000</button>
+        <button class="amount-btn" onclick="selectSuggested(this, 20000)">$20.000</button>
+        <button class="amount-btn" onclick="selectSuggested(this, 50000)">$50.000</button>
+      </div>
+
+      <!-- ② Campo "Otro monto" -->
       <div class="amount-custom mb-5">
-        <label id="amount-label" class="text-xs tracking-widest uppercase block mb-2" style="color:var(--copper);">Ingresá el monto que prefieras</label>
+        <label class="other-amount-label">Otro monto</label>
         <div class="flex items-center gap-2">
           <span style="color:var(--gold);font-size:.9rem;">$</span>
-          <input type="number" id="custom-amount" placeholder="0" min="0" oninput="clearAmountBtns()"/>
+          <input type="number" id="custom-amount" placeholder="0" min="0" oninput="onCustomInput()"/>
         </div>
       </div>
 
-      <div class="cbu-box mb-5 space-y-4">
+      <!-- ③ Datos bancarios — método principal -->
+      <div class="cbu-box mb-4 space-y-4">
         <div>
           <p class="cbu-label">CBU</p>
           <p class="cbu-value">0070099520000012345678</p>
@@ -398,10 +423,24 @@
           <p class="cbu-value" style="font-size:.95rem;">Clarisa ——</p>
         </div>
       </div>
+
+      <!-- WhatsApp -->
       <button class="btn-whatsapp" onclick="sendWhatsApp()">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.135.564 4.14 1.544 5.875L0 24l6.336-1.514A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.79 9.79 0 01-5.002-1.371l-.36-.214-3.732.892.921-3.626-.234-.373A9.784 9.784 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/></svg>
         Enviar comprobante por WhatsApp
       </button>
+
+      <!-- ④ Botón secundario Mercado Pago -->
+      <button class="btn-mp" id="btn-mp" onclick="handleMP()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Pagar con Tarjeta / Mercado Pago
+      </button>
+
+      <!-- ⑤ Aviso monto libre -->
+      <div class="mp-notice" id="mp-notice">
+        Para montos personalizados, por favor realizá la transferencia bancaria con los datos de arriba. ¡Gracias! 💛
+      </div>
+
       <p class="text-center mt-4" style="font-size:.72rem;color:var(--copper);line-height:1.6;">
         Una vez realizada la transferencia, mandanos el comprobante.<br/>¡Gracias de corazón! 💛
       </p>
@@ -410,37 +449,43 @@
 
   <script>
     AOS.init({ duration:800, easing:'ease-out-quart', once:true, offset:50 });
+
     const WHATSAPP_NUMBER = '5491157431671';
 
-    // 'free' = solo campo libre, sin botones
-    // 'poker' y 'peluquin' = botones fijos (parte del chiste)
-    const AMOUNTS = {
-      free:     [],
-      poker:    ['$10.000', '$20.000', '$50.000'],
-      peluquin: ['$20.000', '$40.000', '$80.000'],
+    // Links de Mercado Pago por monto fijo — reemplazá '#' con tus URLs reales
+    const MP_LINKS = {
+      100000: '#',   // URL para $100.000
+      200000: '#',   // URL para $200.000
+      400000: '#',   // URL para $400.000
     };
 
-    let selectedGift = '', selectedAmount = '';
+    // Montos para Poker (botones propios, ocultan los sugeridos principales)
+    const POKER_AMOUNTS = [10000, 20000, 50000];
+
+    let selectedGift  = '';
+    let selectedValue = null; // número o null si es libre
 
     function openModal(giftName, key) {
-      selectedGift = giftName;
-      selectedAmount = '';
+      selectedGift  = giftName;
+      selectedValue = null;
+
       document.getElementById('modal-title').textContent = giftName;
       document.getElementById('custom-amount').value = '';
+      document.getElementById('mp-notice').style.display = 'none';
 
-      const grid = document.getElementById('amount-grid');
-      const amounts = AMOUNTS[key] || [];
+      // Limpiar selección visual
+      document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
 
-      if (amounts.length > 0) {
-        grid.style.display = 'grid';
-        grid.innerHTML = amounts.map(a =>
-          `<button class="amount-btn" onclick="selectAmount(this,'${a}')">${a}</button>`
-        ).join('');
-        document.getElementById('amount-label').textContent = 'O ingresá el que prefieras';
+      // Mostrar/ocultar filas de botones según contexto
+      const isSuggested = document.getElementById('suggested-amounts');
+      const isExtra     = document.getElementById('extra-amounts');
+
+      if (key === 'poker') {
+        isSuggested.style.display = 'none';
+        isExtra.style.display = 'grid';
       } else {
-        grid.style.display = 'none';
-        grid.innerHTML = '';
-        document.getElementById('amount-label').textContent = 'Ingresá el monto que prefieras';
+        isSuggested.style.display = 'grid';
+        isExtra.style.display = 'none';
       }
 
       document.getElementById('modal').classList.add('open');
@@ -458,16 +503,21 @@
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    function selectAmount(btn, amount) {
+    // Al hacer clic en un botón sugerido: selecciona visualmente y autocompleta el campo
+    function selectSuggested(btn, value) {
       document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
-      selectedAmount = amount;
-      document.getElementById('custom-amount').value = '';
+      selectedValue = value;
+      document.getElementById('custom-amount').value = value;
+      document.getElementById('mp-notice').style.display = 'none';
     }
 
-    function clearAmountBtns() {
+    // Si el usuario escribe en el campo libre: deselecciona botones y marca como libre
+    function onCustomInput() {
       document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
-      selectedAmount = '';
+      const val = parseInt(document.getElementById('custom-amount').value);
+      selectedValue = isNaN(val) ? null : val;
+      document.getElementById('mp-notice').style.display = 'none';
     }
 
     function copyText(text, btn) {
@@ -479,11 +529,32 @@
     }
 
     function sendWhatsApp() {
-      const customVal = document.getElementById('custom-amount').value;
-      const amount = selectedAmount || (customVal ? '$'+customVal : '');
-      const amountText = amount ? ' — Monto: '+amount : '';
-      const msg = '¡Hola Clarisa y Ramiro! 🎉✨\n\nQuiero contribuir a: "'+selectedGift+'"'+amountText+'\n\nAdjunto el comprobante. ¡Felices para siempre! 💛';
-      window.open('https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg), '_blank');
+      const val = document.getElementById('custom-amount').value;
+      const amount = val ? '$' + parseInt(val).toLocaleString('es-AR') : '';
+      const amountText = amount ? ' — Monto: ' + amount : '';
+      const msg = '¡Hola Clarisa y Ramiro! 🎉✨\n\nQuiero contribuir a: "' + selectedGift + '"' + amountText + '\n\nAdjunto el comprobante. ¡Felices para siempre! 💛';
+      window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+    }
+
+    // ⑤ Lógica del botón Mercado Pago
+    function handleMP() {
+      const notice = document.getElementById('mp-notice');
+
+      // Si hay un monto fijo seleccionado con link definido
+      if (selectedValue && MP_LINKS[selectedValue] && MP_LINKS[selectedValue] !== '#') {
+        window.open(MP_LINKS[selectedValue], '_blank');
+        return;
+      }
+
+      // Si el valor coincide con una clave pero el link es '#' (aún no configurado)
+      if (selectedValue && MP_LINKS[selectedValue] === '#') {
+        // Redirige igual para que el link de prueba funcione
+        window.open(MP_LINKS[selectedValue], '_blank');
+        return;
+      }
+
+      // Monto libre o no seleccionado → mostrar aviso
+      notice.style.display = 'block';
     }
   </script>
 </body>
