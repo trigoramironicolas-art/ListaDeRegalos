@@ -66,13 +66,9 @@
     .modal-overlay.open{opacity:1;pointer-events:all;}
     .modal-box{background:var(--cream);border:1px solid rgba(192,120,80,.22);border-radius:3px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;transform:translateY(24px) scale(.97);transition:transform .35s cubic-bezier(.34,1.2,.64,1);position:relative;}
     .modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
-    /* Botones de montos sugeridos (los 3 principales) */
     .amount-btn{border:1px solid rgba(192,120,80,.3);background:#fff;color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:1.05rem;padding:10px 0;cursor:pointer;transition:all .2s ease;border-radius:2px;width:100%;}
     .amount-btn:hover,.amount-btn.selected{background:linear-gradient(110deg,var(--burnt),var(--fuschia));color:#fff;border-color:transparent;}
-    /* Grid de 3 botones de montos */
     .amounts-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
-    /* Separador "Otro monto" */
-    .other-amount-label{font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin-bottom:8px;display:block;}
     .amount-custom input{border:1px solid rgba(192,120,80,.3);background:#fff;width:100%;padding:10px 14px;font-family:'Jost',sans-serif;font-size:.9rem;outline:none;color:var(--ink);border-radius:2px;transition:border-color .2s;}
     .amount-custom input:focus{border-color:var(--burnt);}
     .cbu-box{background:#fff;border:1px solid rgba(192,120,80,.2);border-radius:2px;padding:16px 20px;}
@@ -80,16 +76,26 @@
     .cbu-value{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ink);margin-top:2px;}
     .copy-btn{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--olive);background:none;border:none;cursor:pointer;padding:2px 0;font-family:'Jost',sans-serif;transition:color .2s;}
     .copy-btn:hover{color:var(--burnt);}
-    .btn-whatsapp{display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#fff;width:100%;padding:14px;border:none;cursor:pointer;border-radius:2px;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;transition:background .25s;}
-    .btn-whatsapp:hover{background:#1ebe5d;}
-    /* Botón secundario Mercado Pago */
-    .btn-mp{display:flex;align-items:center;justify-content:center;gap:9px;background:#fff;color:var(--ink);width:100%;padding:13px;border:1px solid rgba(192,120,80,.35);cursor:pointer;border-radius:2px;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;transition:background .2s,border-color .2s;margin-top:10px;}
-    .btn-mp:hover{background:rgba(255,248,240,.95);border-color:rgba(192,120,80,.6);}
-    /* Aviso monto libre para MP */
-    .mp-notice{font-family:'Jost',sans-serif;font-size:.72rem;color:var(--copper);text-align:center;padding:11px 14px;background:rgba(255,176,124,.1);border:1px solid rgba(192,120,80,.2);border-radius:2px;line-height:1.6;margin-top:10px;display:none;}
+    /* Botón MP — estilo principal elegante */
+    .btn-mp{display:flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(110deg,var(--burnt),var(--fuschia));color:#fff;width:100%;padding:14px;border:none;cursor:pointer;border-radius:2px;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;transition:box-shadow .3s;position:relative;overflow:hidden;}
+    .btn-mp::before{content:'';position:absolute;inset:0;opacity:0;background:linear-gradient(110deg,var(--fuschia),var(--burnt));transition:opacity .35s;}
+    .btn-mp:hover::before{opacity:1;}
+    .btn-mp:hover{box-shadow:0 4px 20px rgba(209,16,90,.35);}
+    .btn-mp>*{position:relative;z-index:1;}
+    .mp-installments{font-family:'Jost',sans-serif;font-size:.68rem;color:var(--olive);text-align:center;margin-top:8px;letter-spacing:.04em;}
+    /* Panel CBU — secundario, colapsable */
+    .cbu-toggle{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:none;border:1px solid rgba(192,120,80,.3);border-radius:2px;font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--copper);cursor:pointer;transition:background .2s,border-color .2s;margin-top:10px;}
+    .cbu-toggle:hover{background:rgba(255,248,240,.8);border-color:rgba(192,120,80,.55);}
+    .cbu-panel{margin-top:10px;display:none;}
+    .cbu-panel.open{display:block;}
+    /* Panel solo transferencia (monto libre) */
+    .transfer-only{margin-top:0;}
     .close-modal{position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;font-size:1.5rem;color:var(--copper);line-height:1;transition:color .2s;}
     .close-modal:hover{color:var(--ink);}
     .icon-circle{width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(192,120,80,.25);display:flex;align-items:center;justify-content:center;background:rgba(255,176,124,.07);flex-shrink:0;}
+    .payment-divider{display:flex;align-items:center;gap:10px;margin:16px 0 14px;}
+    .payment-divider::before,.payment-divider::after{content:'';flex:1;height:1px;background:rgba(192,120,80,.2);}
+    .payment-divider span{font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);white-space:nowrap;}
     ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--cream);}::-webkit-scrollbar-thumb{background:rgba(192,120,80,.3);border-radius:10px;}
   </style>
 </head>
@@ -140,8 +146,7 @@
   <section class="max-w-2xl mx-auto px-5 pb-8 space-y-5">
 
     <!-- 1. LUNA DE MIEL -->
-    <article class="card-gift" data-aos="fade-up" data-aos-delay="0"
-             style="border-color:rgba(201,169,110,.45);box-shadow:0 0 40px rgba(201,169,110,.14);">
+    <article class="card-gift" data-aos="fade-up" data-aos-delay="0" style="border-color:rgba(201,169,110,.45);box-shadow:0 0 40px rgba(201,169,110,.14);">
       <div style="height:3px;background:linear-gradient(90deg,var(--burnt),var(--gold),var(--fuschia));"></div>
       <div class="p-6">
         <div class="flex items-start gap-4 mb-6">
@@ -158,39 +163,27 @@
         </div>
         <p style="font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--olive);margin-bottom:10px;">Podés acompañarnos en algo específico</p>
         <div class="space-y-2">
-          <div class="sub-card" onclick="openModal('Los vuelos de nuestra luna de miel ✈️','free')">
+          <div class="sub-card" onclick="openModal('Los vuelos de nuestra luna de miel','free')">
             <div class="flex items-center justify-between gap-3">
-              <div>
-                <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);line-height:1.2;">Los vuelos</p>
-                <p style="font-size:.78rem;color:var(--copper);margin-top:3px;line-height:1.5;">El punto de partida de todo. Sin vuelos, no hay luna de miel que valga.</p>
-              </div>
+              <div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);line-height:1.2;">Los vuelos</p><p style="font-size:.78rem;color:var(--copper);margin-top:3px;line-height:1.5;">El punto de partida de todo. Sin vuelos, no hay luna de miel que valga.</p></div>
               <svg width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="1.5" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
-          <div class="sub-card" onclick="openModal('Una noche en nuestro hotel de luna de miel 🌙','free')">
+          <div class="sub-card" onclick="openModal('Una noche en nuestro hotel de luna de miel','free')">
             <div class="flex items-center justify-between gap-3">
-              <div>
-                <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);line-height:1.2;">Una noche en el hotel</p>
-                <p style="font-size:.78rem;color:var(--copper);margin-top:3px;line-height:1.5;">Vista al mar, desayuno incluido, sin mirar el reloj. Así lo imaginamos.</p>
-              </div>
+              <div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);line-height:1.2;">Una noche en el hotel</p><p style="font-size:.78rem;color:var(--copper);margin-top:3px;line-height:1.5;">Vista al mar, desayuno incluido, sin mirar el reloj. Así lo imaginamos.</p></div>
               <svg width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="1.5" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
-          <div class="sub-card" onclick="openModal('Una experiencia que no olvidemos 🤿','free')">
+          <div class="sub-card" onclick="openModal('Una experiencia que no olvidemos','free')">
             <div class="flex items-center justify-between gap-3">
-              <div>
-                <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);line-height:1.2;">La experiencia del viaje</p>
-                <p style="font-size:.78rem;color:var(--copper);margin-top:3px;line-height:1.5;">Esa actividad que uno no haría solo pero que con dos se convierte en historia.</p>
-              </div>
+              <div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);line-height:1.2;">La experiencia del viaje</p><p style="font-size:.78rem;color:var(--copper);margin-top:3px;line-height:1.5;">Esa actividad que uno no haría solo pero que con dos se convierte en historia.</p></div>
               <svg width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="1.5" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
-          <div class="sub-card" onclick="openModal('El fondo del viaje de luna de miel ✈️','free')">
+          <div class="sub-card" onclick="openModal('El viaje de luna de miel','free')">
             <div class="flex items-center justify-between gap-3">
-              <div>
-                <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);line-height:1.2;">El viaje en general</p>
-                <p style="font-size:.78rem;color:var(--copper);margin-top:3px;line-height:1.5;">Sin destino específico dentro del itinerario. Donde más se necesite, ahí va.</p>
-              </div>
+              <div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);line-height:1.2;">El viaje en general</p><p style="font-size:.78rem;color:var(--copper);margin-top:3px;line-height:1.5;">Sin destino específico dentro del itinerario. Donde más se necesite, ahí va.</p></div>
               <svg width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="1.5" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
@@ -203,12 +196,7 @@
       <div class="p-6">
         <div class="flex items-start gap-4">
           <div class="icon-circle">
-            <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-              <path d="M3 14 L15 4 L27 14 L27 27 L19 27 L19 20 L11 20 L11 27 L3 27 Z" fill="#C07850" opacity=".75"/>
-              <rect x="12" y="20" width="6" height="7" rx="1" fill="#FFF8F0" opacity=".9"/>
-              <path d="M3 14 L15 4 L27 14" stroke="#E65A28" stroke-width="1.2" fill="none"/>
-              <circle cx="22" cy="17" r="2" fill="#C9A96E" opacity=".8"/>
-            </svg>
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M3 14 L15 4 L27 14 L27 27 L19 27 L19 20 L11 20 L11 27 L3 27 Z" fill="#C07850" opacity=".75"/><rect x="12" y="20" width="6" height="7" rx="1" fill="#FFF8F0" opacity=".9"/><path d="M3 14 L15 4 L27 14" stroke="#E65A28" stroke-width="1.2" fill="none"/><circle cx="22" cy="17" r="2" fill="#C9A96E" opacity=".8"/></svg>
           </div>
           <div class="flex-1">
             <span class="card-tag">Nuevo Hogar</span>
@@ -217,7 +205,7 @@
           </div>
         </div>
       </div>
-      <button class="btn-main" onclick="openModal('El espacio que estamos haciendo nuestro 🏡','free')">
+      <button class="btn-main" onclick="openModal('El espacio que estamos haciendo nuestro','free')">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 12v7a1 1 0 01-1 1H5a1 1 0 01-1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>
         Ser parte
       </button>
@@ -228,20 +216,16 @@
       <div class="p-6">
         <div class="flex items-start gap-4">
           <div class="icon-circle">
-            <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-              <path d="M15 3 C10 3 6 7 6 12 C6 19 15 27 15 27 C15 27 24 19 24 12 C24 7 20 3 15 3Z" fill="#4A5D23" opacity=".75"/>
-              <circle cx="15" cy="12" r="4" fill="#FFF8F0" opacity=".9"/>
-              <circle cx="15" cy="12" r="2" fill="#D1105A" opacity=".8"/>
-            </svg>
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M15 3 C10 3 6 7 6 12 C6 19 15 27 15 27 C15 27 24 19 24 12 C24 7 20 3 15 3Z" fill="#4A5D23" opacity=".75"/><circle cx="15" cy="12" r="4" fill="#FFF8F0" opacity=".9"/><circle cx="15" cy="12" r="2" fill="#D1105A" opacity=".8"/></svg>
           </div>
           <div class="flex-1">
             <span class="card-tag">Escapadas</span>
             <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--ink);line-height:1.1;margin-bottom:.5rem;">Los viajes que<br/>todavía no tienen fecha</h3>
-            <p style="font-size:.85rem;color:var(--copper);line-height:1.8;">Un lugar nuevo, un fin de semana largo, una excusa para salir de la rutina y recordar por qué nos elegimos. Tenemos una lista mental de destinos que esperan el momento justo — y tu aporte puede ser ese momento.</p>
+            <p style="font-size:.85rem;color:var(--copper);line-height:1.8;">Un lugar nuevo, un fin de semana largo, una excusa para salir de la rutina y recordar por qué nos elegimos. Tenemos una lista mental de destinos que esperan el momento justo.</p>
           </div>
         </div>
       </div>
-      <button class="btn-main" onclick="openModal('Los viajes que todavía no tienen fecha 🗺️','free')">
+      <button class="btn-main" onclick="openModal('Los viajes que todavía no tienen fecha','free')">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 12v7a1 1 0 01-1 1H5a1 1 0 01-1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>
         Ser parte
       </button>
@@ -252,10 +236,7 @@
       <div class="p-6">
         <div class="flex items-start gap-4">
           <div class="icon-circle">
-            <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-              <path d="M15 3 L17.5 10.5 L25.5 10.5 L19 15.5 L21.5 23 L15 18 L8.5 23 L11 15.5 L4.5 10.5 L12.5 10.5 Z" fill="#C9A96E" opacity=".9"/>
-              <path d="M15 7 L16.8 12.5 L22.5 12.5 L18 16 L19.8 21.5 L15 18 L10.2 21.5 L12 16 L7.5 12.5 L13.2 12.5 Z" fill="#f0d060" opacity=".5"/>
-            </svg>
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M15 3 L17.5 10.5 L25.5 10.5 L19 15.5 L21.5 23 L15 18 L8.5 23 L11 15.5 L4.5 10.5 L12.5 10.5 Z" fill="#C9A96E" opacity=".9"/><path d="M15 7 L16.8 12.5 L22.5 12.5 L18 16 L19.8 21.5 L15 18 L10.2 21.5 L12 16 L7.5 12.5 L13.2 12.5 Z" fill="#f0d060" opacity=".5"/></svg>
           </div>
           <div class="flex-1">
             <span class="card-tag">Experiencias</span>
@@ -264,77 +245,29 @@
           </div>
         </div>
       </div>
-      <button class="btn-main" onclick="openModal('Momentos que no caben en ninguna caja ✨','free')">
+      <button class="btn-main" onclick="openModal('Momentos que no caben en ninguna caja','free')">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 12v7a1 1 0 01-1 1H5a1 1 0 01-1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>
         Ser parte
       </button>
     </article>
 
     <!-- 5. APORTE LIBRE -->
-    <article class="card-gift" data-aos="fade-up" data-aos-delay="180"
-             style="background:rgba(42,26,14,.97);border-color:rgba(201,169,110,.35);">
+    <article class="card-gift" data-aos="fade-up" data-aos-delay="180" style="background:rgba(42,26,14,.97);border-color:rgba(201,169,110,.35);">
       <div class="p-6">
         <div class="flex items-start gap-4">
           <div class="icon-circle" style="border-color:rgba(201,169,110,.4);background:rgba(201,169,110,.1);">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M14 3 L16.2 10 L23.5 10 L17.8 14.5 L20 21.5 L14 17 L8 21.5 L10.2 14.5 L4.5 10 L11.8 10 Z" fill="#C9A96E" opacity=".9"/>
-              <path d="M14 6.5 L15.5 11.5 L21 11.5 L16.8 14.5 L18.2 19.5 L14 16.5 L9.8 19.5 L11.2 14.5 L7 11.5 L12.5 11.5 Z" fill="#f0d060" opacity=".5"/>
-            </svg>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3 L16.2 10 L23.5 10 L17.8 14.5 L20 21.5 L14 17 L8 21.5 L10.2 14.5 L4.5 10 L11.8 10 Z" fill="#C9A96E" opacity=".9"/><path d="M14 6.5 L15.5 11.5 L21 11.5 L16.8 14.5 L18.2 19.5 L14 16.5 L9.8 19.5 L11.2 14.5 L7 11.5 L12.5 11.5 Z" fill="#f0d060" opacity=".5"/></svg>
           </div>
           <div class="flex-1">
             <span class="card-tag" style="border-color:rgba(201,169,110,.4);color:var(--gold);">A tu manera</span>
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;line-height:1.1;margin-bottom:.5rem;
-                       background:linear-gradient(135deg,#e0a840,#f8e080,#C9A96E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-              Lo que vos quieras
-            </h3>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;line-height:1.1;margin-bottom:.5rem;background:linear-gradient(135deg,#e0a840,#f8e080,#C9A96E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Lo que vos quieras</h3>
             <p style="font-size:.85rem;line-height:1.8;color:rgba(255,210,150,.8);">Sin categorías ni condiciones. Si tenés ganas de sumarte y la forma que más te representa no está en esta lista, la caja está abierta y el corazón también.</p>
           </div>
         </div>
       </div>
-      <button class="btn-main" onclick="openModal('Aporte libre 💛','free')"
-              style="background:linear-gradient(110deg,#C9A96E,var(--burnt),var(--fuschia));">
+      <button class="btn-main" onclick="openModal('Aporte libre','free')" style="background:linear-gradient(110deg,#C9A96E,var(--burnt),var(--fuschia));">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 12v7a1 1 0 01-1 1H5a1 1 0 01-1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>
         Sumarme
-      </button>
-    </article>
-
-    <!-- SECCIÓN EXTRA -->
-    <div class="extra-divider" data-aos="fade-up">
-      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:var(--copper);white-space:nowrap;">Causas especiales</span>
-    </div>
-
-    <!-- 6. POKER -->
-    <article class="card-gift" data-aos="fade-up" data-aos-delay="0">
-      <div class="p-6">
-        <div class="flex items-start gap-4">
-          <div class="icon-circle">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-              <ellipse cx="8" cy="15" rx="4" ry="8" fill="#8B5E3C" transform="rotate(-15 8 15)"/>
-              <ellipse cx="8" cy="15" rx="2.7" ry="6.2" fill="#C4845A" opacity=".4" transform="rotate(-15 8 15)"/>
-              <ellipse cx="32" cy="15" rx="4" ry="8" fill="#C07850" transform="rotate(15 32 15)"/>
-              <ellipse cx="32" cy="15" rx="2.7" ry="6.2" fill="#E8C4A0" opacity=".38" transform="rotate(15 32 15)"/>
-              <ellipse cx="20" cy="23" rx="13" ry="12" fill="#FFF8F0"/>
-              <ellipse cx="26" cy="18" rx="8" ry="7.5" fill="#8B5E3C"/>
-              <circle cx="13" cy="21" r="3.2" fill="#2A1A0E"/>
-              <circle cx="26" cy="21" r="3.2" fill="#2A1A0E"/>
-              <circle cx="14.3" cy="19.8" r="1.1" fill="#fff"/>
-              <circle cx="27.3" cy="19.8" r="1.1" fill="#fff"/>
-              <ellipse cx="20" cy="28" rx="7" ry="5.2" fill="#F5EDE0"/>
-              <ellipse cx="20" cy="25" rx="2.8" ry="2.1" fill="#2A1A0E"/>
-              <path d="M17 29 Q20 32 23 29" stroke="#C07850" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-              <ellipse cx="20" cy="33.5" rx="2.8" ry="2.4" fill="#D1105A" opacity=".9"/>
-            </svg>
-          </div>
-          <div class="flex-1">
-            <span class="card-tag">Poker</span>
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--ink);line-height:1.1;margin-bottom:.5rem;">El único que no entiende<br/>por qué nos vamos</h3>
-            <p style="font-size:.85rem;color:var(--copper);line-height:1.8;">Poker no sabe que hay luna de miel. Solo sabe que las valijas aparecen y nosotros desaparecemos. Mientras estamos, alguien tiene que encargarse de que esté bien cuidado y bien acompañado. Si querés hacerle el aguante, este fondo es para él.</p>
-          </div>
-        </div>
-      </div>
-      <button class="btn-main" onclick="openModal('El fondo de bienestar de Poker 🐾','poker')">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 12v7a1 1 0 01-1 1H5a1 1 0 01-1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>
-        Hacerle el aguante
       </button>
     </article>
 
@@ -357,25 +290,23 @@
     <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;font-style:italic;color:var(--gold);margin-bottom:.4rem;">Clarisa &amp; Ramiro</p>
     <p style="font-family:'Jost',sans-serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--olive);margin-top:.5rem;">28 · 11 · 2026</p>
     <p style="font-family:'Jost',sans-serif;font-size:.78rem;color:var(--copper);margin-top:1.2rem;opacity:.85;line-height:1.8;max-width:320px;margin-left:auto;margin-right:auto;">
-      Lo más importante ya está confirmado:<br/>van a estar con nosotros. ✨
+      Lo más importante ya está confirmado:<br/>van a estar con nosotros.
     </p>
   </footer>
 
   <!-- MODAL -->
   <div id="modal" class="modal-overlay" role="dialog" aria-modal="true" onclick="handleOverlayClick(event)">
     <div class="modal-box p-7">
-      <button class="close-modal" onclick="closeModal()" aria-label="Cerrar">×</button>
+      <button class="close-modal" onclick="closeModal()" aria-label="Cerrar">x</button>
 
-      <!-- Flores decorativas -->
       <div class="flex justify-center gap-2 mb-5">
         <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="4" fill="#C9A96E"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#D1105A" opacity=".85" transform="rotate(0 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#E65A28" opacity=".8" transform="rotate(90 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#FFB07C" opacity=".8" transform="rotate(180 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#D1105A" opacity=".8" transform="rotate(270 18 18)"/></svg>
         <svg width="12" height="18" viewBox="0 0 24 30" fill="none"><path d="M12 2 C5 10 5 20 12 28 C19 20 19 10 12 2Z" fill="#4A5D23" opacity=".7"/></svg>
         <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="4" fill="#C07850"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#E65A28" opacity=".85" transform="rotate(0 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#D1105A" opacity=".8" transform="rotate(90 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#FFB07C" opacity=".8" transform="rotate(180 18 18)"/><ellipse cx="18" cy="9" rx="3.5" ry="5.5" fill="#E65A28" opacity=".8" transform="rotate(270 18 18)"/></svg>
       </div>
 
-      <!-- Título -->
       <div class="mb-5 pr-6 text-center">
-        <p class="section-label mb-1">estás contribuyendo a</p>
+        <p class="section-label mb-1">contribuyendo a</p>
         <h2 id="modal-title" style="font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:400;color:var(--ink);line-height:1.2;">—</h2>
       </div>
 
@@ -383,110 +314,101 @@
         <span style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--olive);">Elegí un monto</span>
       </div>
 
-      <!-- ① 3 botones de montos sugeridos (siempre visibles) -->
+      <!-- Botones montos sugeridos (free) -->
       <div class="amounts-row" id="suggested-amounts">
-        <button class="amount-btn" onclick="selectSuggested(this, 100000)">$100.000</button>
-        <button class="amount-btn" onclick="selectSuggested(this, 200000)">$200.000</button>
-        <button class="amount-btn" onclick="selectSuggested(this, 400000)">$400.000</button>
+        <button class="amount-btn" onclick="selectAmount(this,100000)">$100.000</button>
+        <button class="amount-btn" onclick="selectAmount(this,200000)">$200.000</button>
+        <button class="amount-btn" onclick="selectAmount(this,400000)">$400.000</button>
       </div>
 
-      <!-- Botones extra para Poker (ocultos por defecto) -->
-      <div class="amounts-row" id="extra-amounts" style="display:none;">
-        <button class="amount-btn" onclick="selectSuggested(this, 10000)">$10.000</button>
-        <button class="amount-btn" onclick="selectSuggested(this, 20000)">$20.000</button>
-        <button class="amount-btn" onclick="selectSuggested(this, 50000)">$50.000</button>
+      <!-- Botones Poker -->
+      <div class="amounts-row" id="poker-amounts" style="display:none;">
+        <button class="amount-btn" onclick="selectAmount(this,10000)">$10.000</button>
+        <button class="amount-btn" onclick="selectAmount(this,20000)">$20.000</button>
+        <button class="amount-btn" onclick="selectAmount(this,50000)">$50.000</button>
       </div>
 
-      <!-- ② Campo "Otro monto" -->
+      <!-- Campo monto libre -->
       <div class="amount-custom mb-5">
-        <label class="other-amount-label">Otro monto</label>
+        <label style="font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);display:block;margin-bottom:8px;">Otro monto</label>
         <div class="flex items-center gap-2">
           <span style="color:var(--gold);font-size:.9rem;">$</span>
           <input type="number" id="custom-amount" placeholder="0" min="0" oninput="onCustomInput()"/>
         </div>
       </div>
 
-      <!-- ③ Datos bancarios — método principal -->
-      <div class="cbu-box mb-4 space-y-4">
-        <div>
-          <p class="cbu-label">CBU</p>
-          <p class="cbu-value">0070099520000012345678</p>
-          <button class="copy-btn mt-1" onclick="copyText('0070099520000012345678',this)">Copiar CBU</button>
-        </div>
-        <div style="border-top:1px solid rgba(192,120,80,.15);padding-top:12px;">
-          <p class="cbu-label">Alias</p>
-          <p class="cbu-value">CLARISA.RAMIRO.BODA</p>
-          <button class="copy-btn mt-1" onclick="copyText('CLARISA.RAMIRO.BODA',this)">Copiar Alias</button>
-        </div>
-        <div style="border-top:1px solid rgba(192,120,80,.15);padding-top:12px;">
-          <p class="cbu-label">Titular</p>
-          <p class="cbu-value" style="font-size:.95rem;">Clarisa ——</p>
+      <!-- ZONA DE PAGO — cambia según monto seleccionado -->
+
+      <!-- A: Monto fijo → MP como principal + CBU colapsable -->
+      <div id="zone-mp" style="display:none;">
+        <button class="btn-mp" onclick="goToMP()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>
+          <span>Pagar con tarjeta o Mercado Pago</span>
+        </button>
+        <p class="mp-installments">Hasta 12 cuotas con tarjetas seleccionadas</p>
+
+        <div class="payment-divider"><span>o transferencia bancaria</span></div>
+
+        <button class="cbu-toggle" onclick="toggleCBU()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h12"/></svg>
+          Ver datos bancarios
+        </button>
+        <div class="cbu-panel" id="cbu-panel-mp">
+          <div class="cbu-box mt-3 space-y-4">
+            <div><p class="cbu-label">CBU</p><p class="cbu-value">0720034288000000786504</p><button class="copy-btn mt-1" onclick="copyText('0720034288000000786504',this)">Copiar CBU</button></div>
+            <div style="border-top:1px solid rgba(192,120,80,.15);padding-top:12px;"><p class="cbu-label">Alias</p><p class="cbu-value">BODA.CLARI.RAMI</p><button class="copy-btn mt-1" onclick="copyText('BODA.CLARI.RAMI',this)">Copiar Alias</button></div>
+            <div style="border-top:1px solid rgba(192,120,80,.15);padding-top:12px;"><p class="cbu-label">Titular</p><p class="cbu-value" style="font-size:.95rem;">Ramiro Trigo</p></div>
+          </div>
         </div>
       </div>
 
-      <!-- WhatsApp -->
-      <button class="btn-whatsapp" onclick="sendWhatsApp()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.135.564 4.14 1.544 5.875L0 24l6.336-1.514A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.79 9.79 0 01-5.002-1.371l-.36-.214-3.732.892.921-3.626-.234-.373A9.784 9.784 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/></svg>
-        Enviar comprobante por WhatsApp
-      </button>
-
-      <!-- ④ Botón secundario Mercado Pago -->
-      <button class="btn-mp" id="btn-mp" onclick="handleMP()">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-        Pagar con Tarjeta / Mercado Pago
-      </button>
-
-      <!-- ⑤ Aviso monto libre -->
-      <div class="mp-notice" id="mp-notice">
-        Para montos personalizados, por favor realizá la transferencia bancaria con los datos de arriba. ¡Gracias! 💛
+      <!-- B: Monto libre → solo CBU -->
+      <div id="zone-cbu" style="display:none;">
+        <div class="transfer-only cbu-box space-y-4">
+          <div><p class="cbu-label">CBU</p><p class="cbu-value">0720034288000000786504</p><button class="copy-btn mt-1" onclick="copyText('0720034288000000786504',this)">Copiar CBU</button></div>
+          <div style="border-top:1px solid rgba(192,120,80,.15);padding-top:12px;"><p class="cbu-label">Alias</p><p class="cbu-value">BODA.CLARI.RAMI</p><button class="copy-btn mt-1" onclick="copyText('BODA.CLARI.RAMI',this)">Copiar Alias</button></div>
+          <div style="border-top:1px solid rgba(192,120,80,.15);padding-top:12px;"><p class="cbu-label">Titular</p><p class="cbu-value" style="font-size:.95rem;">Ramiro Trigo</p></div>
+        </div>
+        <p style="font-family:'Jost',sans-serif;font-size:.68rem;color:var(--copper);text-align:center;margin-top:10px;line-height:1.5;">Para pagos con tarjeta selecciona uno de los montos de arriba.</p>
       </div>
 
-      <p class="text-center mt-4" style="font-size:.72rem;color:var(--copper);line-height:1.6;">
-        Una vez realizada la transferencia, mandanos el comprobante.<br/>¡Gracias de corazón! 💛
-      </p>
+      <!-- C: Estado inicial — sin zona visible -->
+      <div id="zone-empty" style="padding:16px 0;text-align:center;">
+        <p style="font-family:'Jost',sans-serif;font-size:.78rem;color:rgba(192,120,80,.6);letter-spacing:.05em;">Selecciona un monto para continuar</p>
+      </div>
+
     </div>
   </div>
 
   <script>
     AOS.init({ duration:800, easing:'ease-out-quart', once:true, offset:50 });
 
-    const WHATSAPP_NUMBER = '5491157431671';
-
-    // Links de Mercado Pago por monto fijo — reemplazá '#' con tus URLs reales
+    // Links de Mercado Pago — reemplazá '#' con tus URLs reales
     const MP_LINKS = {
-      100000: '#',   // URL para $100.000
-      200000: '#',   // URL para $200.000
-      400000: '#',   // URL para $400.000
+      100000: '#',
+      200000: '#',
+      400000: '#',
+      10000:  '#',
+      20000:  '#',
+      50000:  '#',
     };
 
-    // Montos para Poker (botones propios, ocultan los sugeridos principales)
-    const POKER_AMOUNTS = [10000, 20000, 50000];
-
-    let selectedGift  = '';
-    let selectedValue = null; // número o null si es libre
+    let selectedValue = null;
 
     function openModal(giftName, key) {
-      selectedGift  = giftName;
       selectedValue = null;
-
       document.getElementById('modal-title').textContent = giftName;
       document.getElementById('custom-amount').value = '';
-      document.getElementById('mp-notice').style.display = 'none';
-
-      // Limpiar selección visual
       document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
 
-      // Mostrar/ocultar filas de botones según contexto
-      const isSuggested = document.getElementById('suggested-amounts');
-      const isExtra     = document.getElementById('extra-amounts');
+      // Mostrar fila de montos correcta
+      document.getElementById('suggested-amounts').style.display = key === 'poker' ? 'none' : 'grid';
+      document.getElementById('poker-amounts').style.display      = key === 'poker' ? 'grid' : 'none';
 
-      if (key === 'poker') {
-        isSuggested.style.display = 'none';
-        isExtra.style.display = 'grid';
-      } else {
-        isSuggested.style.display = 'grid';
-        isExtra.style.display = 'none';
-      }
+      // Resetear zona de pago
+      showZone('empty');
+      // Colapsar CBU si estaba abierto
+      document.getElementById('cbu-panel-mp').classList.remove('open');
 
       document.getElementById('modal').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -503,58 +425,61 @@
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // Al hacer clic en un botón sugerido: selecciona visualmente y autocompleta el campo
-    function selectSuggested(btn, value) {
+    function selectAmount(btn, value) {
       document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
       selectedValue = value;
-      document.getElementById('custom-amount').value = value;
-      document.getElementById('mp-notice').style.display = 'none';
+      document.getElementById('custom-amount').value = value.toLocaleString('es-AR');
+      // Monto fijo → mostrar zona MP
+      showZone('mp');
+      document.getElementById('cbu-panel-mp').classList.remove('open');
     }
 
-    // Si el usuario escribe en el campo libre: deselecciona botones y marca como libre
     function onCustomInput() {
       document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
-      const val = parseInt(document.getElementById('custom-amount').value);
-      selectedValue = isNaN(val) ? null : val;
-      document.getElementById('mp-notice').style.display = 'none';
+      const raw = document.getElementById('custom-amount').value.replace(/\D/g,'');
+      const val = parseInt(raw);
+      if (!raw || isNaN(val)) {
+        selectedValue = null;
+        showZone('empty');
+        return;
+      }
+      // Si coincide con un monto fijo, usar MP
+      if (MP_LINKS[val] !== undefined) {
+        selectedValue = val;
+        showZone('mp');
+      } else {
+        selectedValue = val;
+        showZone('cbu');
+      }
+    }
+
+    function showZone(zone) {
+      document.getElementById('zone-mp').style.display    = zone === 'mp'    ? 'block' : 'none';
+      document.getElementById('zone-cbu').style.display   = zone === 'cbu'   ? 'block' : 'none';
+      document.getElementById('zone-empty').style.display = zone === 'empty' ? 'block' : 'none';
+    }
+
+    function toggleCBU() {
+      document.getElementById('cbu-panel-mp').classList.toggle('open');
+    }
+
+    function goToMP() {
+      const link = MP_LINKS[selectedValue];
+      if (link && link !== '#') {
+        window.open(link, '_blank');
+      } else {
+        // Link placeholder — igual abre para testear
+        alert('Link de Mercado Pago no configurado aun para este monto. Reemplaza el "#" en MP_LINKS con tu URL real.');
+      }
     }
 
     function copyText(text, btn) {
       navigator.clipboard.writeText(text).then(() => {
         const orig = btn.textContent;
-        btn.textContent = '✓ Copiado';
+        btn.textContent = 'Copiado';
         setTimeout(() => { btn.textContent = orig; }, 2000);
       });
-    }
-
-    function sendWhatsApp() {
-      const val = document.getElementById('custom-amount').value;
-      const amount = val ? '$' + parseInt(val).toLocaleString('es-AR') : '';
-      const amountText = amount ? ' — Monto: ' + amount : '';
-      const msg = '¡Hola Clarisa y Ramiro! 🎉✨\n\nQuiero contribuir a: "' + selectedGift + '"' + amountText + '\n\nAdjunto el comprobante. ¡Felices para siempre! 💛';
-      window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
-    }
-
-    // ⑤ Lógica del botón Mercado Pago
-    function handleMP() {
-      const notice = document.getElementById('mp-notice');
-
-      // Si hay un monto fijo seleccionado con link definido
-      if (selectedValue && MP_LINKS[selectedValue] && MP_LINKS[selectedValue] !== '#') {
-        window.open(MP_LINKS[selectedValue], '_blank');
-        return;
-      }
-
-      // Si el valor coincide con una clave pero el link es '#' (aún no configurado)
-      if (selectedValue && MP_LINKS[selectedValue] === '#') {
-        // Redirige igual para que el link de prueba funcione
-        window.open(MP_LINKS[selectedValue], '_blank');
-        return;
-      }
-
-      // Monto libre o no seleccionado → mostrar aviso
-      notice.style.display = 'block';
     }
   </script>
 </body>
